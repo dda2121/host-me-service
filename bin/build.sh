@@ -6,4 +6,4 @@ export DB_USERNAME=postgres
 export DB_PASSWORD=postgres
 export DB_SCHEMA=public
 
-./gradlew $@
+./gradlew clean build $@

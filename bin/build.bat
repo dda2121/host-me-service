@@ -5,4 +5,4 @@ set DB_USERNAME=postgres
 set DB_PASSWORD=postgres
 set DB_SCHEMA=public
 
-gradlew %*
+gradlew clean build %*
