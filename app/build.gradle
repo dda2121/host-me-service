@@ -11,6 +11,9 @@ dependencies {
   api project(':domain')
   api project(':domain:shared')
 
+  implementation("org.springframework.boot:spring-boot-starter-actuator")
+  implementation("org.springframework.boot:spring-boot-actuator-autoconfigure")
+
   api("org.springframework.boot:spring-boot-starter")
 
   testImplementation("org.liquibase:liquibase-core:$liquibaseCoreVersion")
