@@ -1,0 +1,3 @@
+dependencies {
+    api("org.jooq:jooq-codegen:$jooqVersion")
+}

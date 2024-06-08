@@ -4,7 +4,6 @@ import com.di.hostme.service.domain.common.error.ErrorCode;
 import com.di.hostme.service.domain.common.error.ErrorCodeType;
 
 public enum ApiErrorCode implements ErrorCode {
-
   BAD_REQUEST(ErrorCodeType.BAD_REQUEST, "Invalid request parameters.");
 
   private final ErrorCodeType errorCodeType;
