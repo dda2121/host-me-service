@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.di: DEBUG
+    org.jooq: DEBUG
+
+spring:
+  application.name: ${APPLICATION_NAME:host-me-service}
+  datasource:
+    driver-class-name: "org.postgresql.Driver"
+    jdbcUrl: ${DB_CONNECTION_URI:jdbc:postgresql://localhost:5433/postgres}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    default-schema: ${DB_SCHEMA:public}
+    hikari:
+      jdbc-url: ${DB_CONNECTION_URI:jdbc:postgresql://localhost:5433/postgres}
+      username: ${DB_USERNAME:postgres}
+      password: ${DB_PASSWORD:postgres}
+  jooq:
+    sql-dialect: POSTGRES
+    schema-name: ${DB_SCHEMA:public}
+  liquibase:
+    url: ${DB_CONNECTION_URI:jdbc:postgresql://localhost:5432/postgres}
+    user: ${DB_LIQUIBASE_USERNAME:postgres}
+    password: ${DB_LIQUIBASE_PASSWORD:postgres}
+    default-schema: ${DB_SCHEMA:public}
+    enabled: false
+    parameters:
+      DB_SCHEMA: ${DB_SCHEMA:public}
+      DB_USERNAME: ${DB_USERNAME:postgres}
+
+springdoc:
+  default-consumes-media-type: "application/json"
+  default-produces-media-type: "application/json"
+  api-docs:
+    enabled: true
+    path: "/internal/v3/docs"
+    groups.enabled: true
+    resolve-schema-properties: true
+  swagger-ui:
+    path: "/internal/swagger-ui.html"
+    display-request-duration: true
+    groups-order: desc
+    operations-sorter: method
+    disable-swagger-default-url: true

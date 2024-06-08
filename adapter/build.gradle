@@ -1,0 +1,4 @@
+dependencies {
+    api project(':adapter:persistence')
+    api project(':adapter:rest-api')
+}

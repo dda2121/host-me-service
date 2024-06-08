@@ -1,0 +1,17 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+  api project(':adapter')
+  api project(':adapter:persistence')
+  api project(':adapter:persistence:db-model')
+  api project(':adapter:rest-api')
+  api project(':adapter:rest-api:api-dto')
+
+  api project(':business')
+  api project(':domain')
+  api project(':domain:shared')
+
+  api("org.springframework.boot:spring-boot-starter")
+
+  testImplementation("org.liquibase:liquibase-core:$liquibaseCoreVersion")
+}

@@ -1,0 +1,107 @@
+import org.yaml.snakeyaml.Yaml
+import nu.studer.gradle.jooq.JooqEdition
+
+apply plugin: 'org.liquibase.gradle'
+apply plugin: 'nu.studer.jooq'
+
+def DB_SETTINGS = loadDbSettings()
+
+dependencies {
+    api project(':domain')
+
+    api("org.liquibase:liquibase-core:$liquibaseCoreVersion")
+    api("org.jooq:jooq-codegen:$jooqVersion")
+
+    runtimeOnly("org.postgresql:postgresql:${postgresqlVersion}")
+
+    liquibaseRuntime("org.liquibase:liquibase-core:$liquibaseCoreVersion")
+    liquibaseRuntime("info.picocli:picocli:$picoliVersion")
+    liquibaseRuntime("org.postgresql:postgresql:${postgresqlVersion}")
+
+    jooqGenerator("org.postgresql:postgresql:${postgresqlVersion}")
+    jooqGenerator project(':adapter:persistence:db-model:jooq-strategy')
+}
+
+static DbSettings loadDbSettings() {
+    Map<String, Object> map = new Yaml().load(new File("app/src/main/resources/application-local.yaml").newInputStream())
+    Map datasource = (Map) ((Map) (((Map) map.get("spring")).get("datasource"))).get("hikari")
+    Map liquibase = (Map) (((Map) map.get("spring")).get("liquibase"))
+    return new DbSettings(
+            System.getenv('DB_CONNECTION_URI') == null ? parseDefaultValue(datasource.get("jdbc-url")) : System.getenv('DB_CONNECTION_URI'),
+            System.getenv('DB_LIQUIBASE_USERNAME') == null ? parseDefaultValue(liquibase.get("user")) : System.getenv('DB_LIQUIBASE_USERNAME'),
+            System.getenv('DB_LIQUIBASE_PASSWORD') == null ? parseDefaultValue(liquibase.get("password")) : System.getenv('DB_LIQUIBASE_PASSWORD'),
+            System.getenv('DB_USERNAME') == null ? parseDefaultValue(datasource.get("username")) : System.getenv('DB_USERNAME'),
+            System.getenv('DB_PASSWORD') == null ? parseDefaultValue(datasource.get("password")) : System.getenv('DB_PASSWORD'),
+            System.getenv('DB_SCHEMA') == null ? parseDefaultValue(liquibase.get("default-schema")) : System.getenv('DB_SCHEMA')
+    )
+}
+
+static String parseDefaultValue(String value) {
+    return value.substring(value.indexOf(":") + 1, value.indexOf("}"))
+}
+
+liquibase {
+    activities {
+        main {
+            // use `shouldRun "false"` to disable Liquibase execution
+            classpath "$projectDir/src/main/resources"
+            changeLogFile "/db/changelog.xml"
+            url DB_SETTINGS.getUrl()
+            username DB_SETTINGS.getLiquibaseUsername()
+            password DB_SETTINGS.getLiquibasePassword()
+            defaultSchemaName DB_SETTINGS.getDbSchema()
+            changeLogParameters(['DB_SCHEMA': DB_SETTINGS.getDbSchema(), 'DB_USERNAME': DB_SETTINGS.getUsername()])
+        }
+    }
+}
+
+jooq {
+    version = jooqVersion
+    edition = JooqEdition.OSS
+
+    configurations {
+        main {
+            generationTool {
+                logging = org.jooq.meta.jaxb.Logging.WARN
+                jdbc {
+                    driver = 'org.postgresql.Driver'
+                    url = DB_SETTINGS.getUrl()
+                    user = DB_SETTINGS.getUsername()
+                    password = DB_SETTINGS.getPassword()
+                    properties {
+                        property {
+                            key = 'ssl'
+                            value = 'false'
+                        }
+                    }
+                }
+                generator {
+                    name = 'org.jooq.codegen.DefaultGenerator'
+                    database {
+                        name = 'org.jooq.meta.postgres.PostgresDatabase'
+                        inputSchema = DB_SETTINGS.getDbSchema()
+                        outputSchema = 'DB_SCHEMA_REPLACEABLE'
+                        excludes = 'DATABASECHANGELOG.*'
+                        dateAsTimestamp = true
+                    }
+                    generate {
+                        deprecated = false
+                        records = true
+                        immutablePojos = true
+                        fluentSetters = true
+                        daos = true
+                    }
+                    target {
+                        packageName = 'com.di.hostme.service.repository.model'
+                    }
+                    strategy {
+                        name = 'com.di.hostme.service.jooq.generatorStrategy.GeneratorStrategy'
+                    }
+                }
+            }
+        }
+    }
+}
+
+// use `generateJooq.onlyIf {false}` to disable Jooq generation
+generateJooq.dependsOn update

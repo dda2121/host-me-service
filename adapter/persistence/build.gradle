@@ -1,0 +1,14 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    api project(':adapter:persistence:db-model')
+    api project(':business')
+
+    api("org.postgresql:postgresql:${postgresqlVersion}")
+    api("com.zaxxer:HikariCP")
+    api("org.springframework.boot:spring-boot-starter-jooq")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+}

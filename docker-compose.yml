@@ -1,0 +1,17 @@
+version: '1'
+
+services:
+  db:
+    image: 'postgres:latest'
+    restart: "unless-stopped"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+      - "5500:5500"
+
+volumes:
+  db-data:
+    driver: local

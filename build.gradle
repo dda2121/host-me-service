@@ -1,0 +1,113 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+buildscript {
+  repositories {
+    gradlePluginPortal()
+    mavenCentral()
+  }
+
+  ext {
+    springBootVersion = '3.3.0'
+    postgresqlVersion = '42.7.3'
+    immutablesVersion = '2.10.1'
+    spotlessVersion = '6.25.0'
+    googleFormatVersion = '1.22.0'
+    swaggerVersion = '2.2.22'
+    liquibaseGradleVersion = '2.2.2'
+    liquibaseCoreVersion = '4.28.0'
+    picoliVersion = '4.7.6'
+    jooqVersion = '3.19.9'
+    jooqGradlePlugin = '9.0'
+    snakeYamlVersion = '2.2'
+    logstashLogbackEncoderVersion = '7.2'
+    opentelemetryLogbackVersion = '1.9.2-alpha'
+    gitVersionVersion = '3.1.0'
+    slf4jVersion = '2.0.13'
+  }
+
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+    classpath("com.palantir.gradle.gitversion:gradle-git-version:$gitVersionVersion")
+    classpath("com.diffplug.spotless:spotless-plugin-gradle:$spotlessVersion")
+    classpath("org.liquibase:liquibase-gradle-plugin:$liquibaseGradleVersion")
+    classpath("org.yaml:snakeyaml:$snakeYamlVersion")
+    classpath("nu.studer:gradle-jooq-plugin:$jooqGradlePlugin")
+  }
+}
+
+group 'hostme.service'
+version = '0.1.0-SNAPSHOT'
+
+subprojects{
+  apply plugin: 'java-library'
+  apply plugin: 'idea'
+  apply plugin: 'com.diffplug.spotless'
+  apply plugin: 'io.spring.dependency-management'
+
+  sourceCompatibility = JavaVersion.VERSION_21
+  targetCompatibility = JavaVersion.VERSION_21
+
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+      url = uri('https://oss.sonatype.org/content/groups/public/')
+    }
+  }
+
+  dependencies {
+    implementation platform(SpringBootPlugin.BOM_COORDINATES)
+
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+
+    compileOnly("org.immutables:value-annotations:$immutablesVersion")
+
+    annotationProcessor("org.immutables:value:$immutablesVersion")
+
+    runtimeOnly("net.logstash.logback:logstash-logback-encoder:${logstashLogbackEncoderVersion}")
+    runtimeOnly("io.opentelemetry.instrumentation:opentelemetry-logback-1.0:${opentelemetryLogbackVersion}")
+
+  }
+
+  tasks.withType(JavaCompile) {
+    dependsOn 'spotlessApply'
+  }
+
+  tasks.withType(JavaCompile) {
+    options.compilerArgs += "--enable-preview"
+  }
+
+  tasks.withType(Test) {
+    jvmArgs += "--enable-preview"
+  }
+
+  tasks.withType(JavaExec) {
+    jvmArgs += '--enable-preview'
+  }
+
+  jar {
+    archiveBaseName = "${rootProject.getName()}-${project.getName()}"
+  }
+
+  clean {
+    delete "out"
+  }
+
+  spotless {
+    java {
+      removeUnusedImports()
+      trimTrailingWhitespace()
+      googleJavaFormat(googleFormatVersion)
+    }
+  }
+
+  tasks.withType(JavaCompile) {
+    dependsOn 'spotlessApply'
+    options.compilerArgs += ["-parameters"]
+  }
+
+  test {
+    useJUnitPlatform()
+    jvmArgs = ["--add-opens=java.base/java.util.concurrent=ALL-UNNAMED", "--add-opens=java.base/java.time=ALL-UNNAMED"]
+  }
+}

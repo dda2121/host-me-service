@@ -1,0 +1,54 @@
+application.version: "0.1.0"
+application.rest-api.version: "1.0.0"
+
+spring:
+  application.name: ${APPLICATION_NAME:host-me-service}
+  profiles.active: local
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: "org.postgresql.Driver"
+    url: ${DB_CONNECTION_URI}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    default-schema: ${DB_SCHEMA}
+    hikari:
+      url: ${DB_CONNECTION_URI}
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}
+  liquibase:
+    url: ${DB_CONNECTION_URI}
+    user: ${DB_LIQUIBASE_USERNAME}
+    password: ${DB_LIQUIBASE_PASSWORD}
+    default-schema: ${DB_SCHEMA}
+    driver-class-name: org.postgresql.Driver
+    change-log: "classpath:/db/changelog.xml"
+    parameters:
+      DB_SCHEMA: ${DB_SCHEMA}
+      DB_USERNAME: ${DB_USERNAME}
+
+management:
+  endpoint:
+    restart.enabled: true
+    health:
+      enabled: true
+      show-details: always
+    info.enabled: true
+    prometheus.enabled: true
+  endpoints:
+    web:
+      exposure.include: 'env,info,health,prometheus,httptrace,status'
+      base-path: "/internal/actuator"
+      
+springdoc:
+  default-consumes-media-type: "application/json"
+  default-produces-media-type: "application/json"
+  api-docs:
+    enabled: true
+    path: "/internal/v3/docs"
+    groups.enabled: true
+    resolve-schema-properties: true
+  swagger-ui:
+    path: "/internal/swagger-ui.html"
+    display-request-duration: true
+    groups-order: desc
+    operations-sorter: method
