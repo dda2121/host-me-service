@@ -15,13 +15,11 @@ public interface ErrorResponse {
 
   @Schema(
       description = "The name of the service that generated the error response",
-      requiredMode = REQUIRED,
       example = "host-me-service")
   String serviceName();
 
   @Schema(
       description = "List of error details explaining the cause of the failure",
-      requiredMode = REQUIRED,
       example =
           """
             [
