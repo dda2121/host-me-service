@@ -21,6 +21,7 @@ public class FindCountryService extends AbstractService implements FindCountryUs
   @Override
   public CountryEntity execute(FindCountryByIdQuery query) {
     log.info("Applying findCountryUseCase, query: '{}'.", query);
+
     return queryCountryPort.findOne(query);
   }
 }

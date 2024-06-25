@@ -4,10 +4,12 @@ import com.di.hostme.service.business.country.port.inbound.FindCountryUseCase;
 import com.di.hostme.service.business.country.port.inbound.ListCountryUseCase;
 import com.di.hostme.service.domain.country.query.ImmutableFindCountryByIdQuery;
 import com.di.hostme.service.mapper.CountryResponseMapper;
+import com.di.hostme.service.rest.api.dto.common.error.ErrorResponseFault;
 import com.di.hostme.service.rest.api.dto.country.CountryDetailResponse;
 import com.di.hostme.service.rest.api.dto.country.CountryListResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -49,6 +51,35 @@ public class CountryController extends BaseController {
               @Content(
                   mediaType = MediaType.APPLICATION_JSON_VALUE,
                   schema = @Schema(implementation = CountryDetailResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "404",
+            description =
+                "Unsuccessful operation - an exception indicating that the country does not exist is returned",
+            content = {
+              @Content(
+                  mediaType = MediaType.APPLICATION_JSON_VALUE,
+                  schema = @Schema(implementation = ErrorResponseFault.class),
+                  examples = {
+                    @ExampleObject(
+                        name = "COUNTRY_DOES_NOT_EXIST",
+                        description = "Country with id '%s' does not exist.",
+                        value =
+                            """
+                                {
+                                  "serviceName" : "host-me-service",
+                                  "errorResponseFaults": [
+                                    {
+                                        "code": "COUNTRY_DOES_NOT_EXIST",
+                                        "message": "Country with id '%s' does not exist.",
+                                        "messageParameters": [
+                                            e9ee4c87-8633-4393-b6a6-1b7778585d51
+                                        ]
+                                    }
+                                  ]
+                                }
+                            """)
+                  })
             }),
       })
   @GetMapping(value = COUNTRY_URI, produces = MediaType.APPLICATION_JSON_VALUE)

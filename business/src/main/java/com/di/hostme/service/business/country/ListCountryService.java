@@ -21,6 +21,7 @@ public class ListCountryService extends AbstractService implements ListCountryUs
   @Override
   public List<CountryEntity> execute() {
     log.info("Applying listCountryUseCase.");
+
     return queryCountryPort.list();
   }
 }
