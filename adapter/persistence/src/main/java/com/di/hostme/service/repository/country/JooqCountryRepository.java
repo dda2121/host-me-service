@@ -51,6 +51,6 @@ public class JooqCountryRepository extends JooqRepository implements CountryRepo
         dslContext.select().from(LV_COUNTRY).where(LV_COUNTRY.IS_DELETED.eq(false)).fetch();
 
     log.info("List applied successfully.");
-    return result.map(CountryJooqRepositoryMapper::map).stream().toList();
+    return result.map(CountryJooqRepositoryMapper::map).parallelStream().toList();
   }
 }
