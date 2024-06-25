@@ -55,7 +55,7 @@ public class CountryController extends BaseController {
         @ApiResponse(
             responseCode = "404",
             description =
-                "Unsuccessful operation - an exception indicating that the country does not exist is returned",
+                "Unsuccessful operation - the country does not exist exception is returned",
             content = {
               @Content(
                   mediaType = MediaType.APPLICATION_JSON_VALUE,
