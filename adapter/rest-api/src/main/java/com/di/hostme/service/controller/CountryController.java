@@ -21,7 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Countries", description = "Countries endpoints")
+@Tag(name = "Countries", description = "Country endpoints")
 @RestController
 public class CountryController extends BaseController {
 
