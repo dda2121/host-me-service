@@ -1,5 +1,6 @@
 package com.di.hostme.service.repository;
 
+import com.di.hostme.service.repository.country.JooqCountryRepository;
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,4 +14,5 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public abstract class JooqRepositoryTest {
 
   @Autowired protected DSLContext dslContext;
+  @Autowired protected JooqCountryRepository countryRepository;
 }

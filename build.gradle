@@ -2,12 +2,13 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 buildscript {
   repositories {
-    gradlePluginPortal()
     mavenCentral()
+    gradlePluginPortal()
   }
 
   ext {
     springBootVersion = '3.3.0'
+    springVersion = '6.1.10'
     postgresqlVersion = '42.7.3'
     immutablesVersion = '2.10.1'
     spotlessVersion = '6.25.0'
@@ -23,7 +24,8 @@ buildscript {
     opentelemetryLogbackVersion = '1.9.2-alpha'
     gitVersionVersion = '3.1.0'
     slf4jVersion = '2.0.13'
-    springDocVersion = "2.2.0"
+    springDocVersion = '2.2.0'
+    jakartaValidationApiVersion = '3.1.0'
   }
 
   dependencies {
@@ -59,7 +61,9 @@ subprojects{
   dependencies {
     implementation platform(SpringBootPlugin.BOM_COORDINATES)
 
-    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation("org.springframework:spring-web:${springVersion}")
+    implementation("org.springframework:spring-context:${springVersion}")
+    implementation("org.slf4j:slf4j-api:${slf4jVersion}")
 
     compileOnly("org.immutables:value-annotations:$immutablesVersion")
 

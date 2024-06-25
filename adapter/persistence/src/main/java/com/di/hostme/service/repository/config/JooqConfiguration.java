@@ -58,7 +58,6 @@ public class JooqConfiguration {
   DSLContext dsl(
       @Qualifier(HOST_ME_SERVICE_DATA_SOURCE_CONNECTION_PROVIDER)
           DataSourceConnectionProvider provider) {
-
     final Settings settings =
         new Settings()
             .withRenderQuotedNames(RenderQuotedNames.EXPLICIT_DEFAULT_UNQUOTED)

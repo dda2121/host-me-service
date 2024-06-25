@@ -9,20 +9,22 @@ logging:
 
 spring:
   datasource:
+    jdbcUrl: ${DB_CONNECTION_URI:jdbc:postgresql://localhost:5432/postgres}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    default-schema: ${DB_SCHEMA:public}
     hikari:
       jdbc-url: ${DB_CONNECTION_URI:jdbc:postgresql://localhost:5432/postgres}
       username: ${DB_USERNAME:postgres}
       password: ${DB_PASSWORD:postgres}
-    jooq:
-      sql-dialect: POSTGRES
-      schema-name: ${DB_SCHEMA:public}
-    liquibase:
-      url: ${DB_CONNECTION_URI:jdbc:postgresql://localhost:5432/postgres}
-      user: ${DB_LIQUIBASE_USERNAME:postgres}
-      password: ${DB_LIQUIBASE_PASSWORD:postgres}
-      default-schema: ${DB_SCHEMA:public}
-      driver-class-name: org.postgresql.Driver
-      change-log: "classpath:/db/changelog.xml"
-      parameters:
-        DB_SCHEMA: ${DB_SCHEMA:public}
-        DB_USERNAME: ${DB_USERNAME:postgres}
+  jooq:
+    schema-name: ${DB_SCHEMA:public}
+  liquibase:
+    url: ${DB_CONNECTION_URI:jdbc:postgresql://localhost:5432/postgres}
+    user: ${DB_LIQUIBASE_USERNAME:postgres}
+    password: ${DB_LIQUIBASE_PASSWORD:postgres}
+    default-schema: ${DB_SCHEMA:public}
+    enabled: false
+    parameters:
+      DB_SCHEMA: ${DB_SCHEMA:public}
+      DB_USERNAME: ${DB_USERNAME:postgres}

@@ -5,13 +5,14 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.List;
 import org.immutables.value.Value;
 
-@JsonDeserialize(as = ImmutableErrorResponseList.class)
-@JsonSerialize(as = ImmutableErrorResponseList.class)
-@Value.Style(stagedBuilder = true)
+@JsonSerialize(as = ImmutableErrorResponseFault.class)
+@JsonDeserialize(as = ImmutableErrorResponseFault.class)
 @Value.Immutable
-public interface ErrorResponseList {
+public interface ErrorResponseFault {
 
-  String serviceName();
+  String code();
 
-  List<ErrorResponse> faults();
+  String message();
+
+  List<String> messageParameters();
 }

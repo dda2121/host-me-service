@@ -7,24 +7,11 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: "org.postgresql.Driver"
-    url: ${DB_CONNECTION_URI}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    default-schema: ${DB_SCHEMA}
-    hikari:
-      url: ${DB_CONNECTION_URI}
-      username: ${DB_USERNAME}
-      password: ${DB_PASSWORD}
   liquibase:
-    url: ${DB_CONNECTION_URI}
-    user: ${DB_LIQUIBASE_USERNAME}
-    password: ${DB_LIQUIBASE_PASSWORD}
-    default-schema: ${DB_SCHEMA}
     driver-class-name: org.postgresql.Driver
     change-log: "classpath:/db/changelog.xml"
-    parameters:
-      DB_SCHEMA: ${DB_SCHEMA}
-      DB_USERNAME: ${DB_USERNAME}
+  jooq:
+    sql-dialect: POSTGRES
 
 management:
   endpoint:
@@ -52,3 +39,4 @@ springdoc:
     display-request-duration: true
     groups-order: desc
     operations-sorter: method
+    disable-swagger-default-url: true

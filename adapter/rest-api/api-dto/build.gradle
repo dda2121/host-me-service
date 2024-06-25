@@ -1,5 +1,7 @@
 dependencies {
     api project(':domain:shared')
 
-    api("com.fasterxml.jackson.core:jackson-databind")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation("io.swagger.core.v3:swagger-annotations:${swaggerVersion}")
+    implementation("jakarta.validation:jakarta.validation-api:${jakartaValidationApiVersion}")
 }

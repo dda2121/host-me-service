@@ -6,11 +6,11 @@ import org.slf4j.LoggerFactory;
 
 public abstract class JooqRepository {
 
-  protected final DSLContext dslContext;
-
   protected static final Logger log = LoggerFactory.getLogger(JooqRepository.class);
 
-  protected JooqRepository(HostMePersistenceContext dslContext) {
+  protected final DSLContext dslContext;
+
+  public JooqRepository(HostMePersistenceContext dslContext) {
     this.dslContext = dslContext.get();
   }
 }

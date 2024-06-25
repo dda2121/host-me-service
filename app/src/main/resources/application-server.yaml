@@ -9,9 +9,7 @@ logging:
   config: ${LOGBACK_CONFIG_FILE:classpath:logback-spring.xml}
 
 spring:
-  application.name: ${APPLICATION_NAME:host-me-service}
   datasource:
-    driver-class-name: "org.postgresql.Driver"
     jdbcUrl: ${DB_CONNECTION_URI}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
@@ -21,7 +19,6 @@ spring:
       username: ${DB_USERNAME}
       password: ${DB_PASSWORD}
   jooq:
-    sql-dialect: POSTGRES
     schema-name: ${DB_SCHEMA}
   liquibase:
     url: ${DB_CONNECTION_URI}
@@ -31,7 +28,3 @@ spring:
     parameters:
       DB_SCHEMA: ${DB_SCHEMA}
       DB_USERNAME: ${DB_USERNAME}
-
-springdoc:
-  swagger-ui:
-    disable-swagger-default-url: true
