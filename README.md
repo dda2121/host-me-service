@@ -1,6 +1,15 @@
-# Host Me Appplication Service
+# Host Me Application Service
+Welcome to the Host Me Application Service. 
 
-# Build and run in docker
-```shell script
-docker-compose up -d # Run db in docker
+## Prerequisites
+### Running PostgreSQL with Docker
+To run PostgreSQL using Docker, execute the following command in your terminal:
+```bash
+docker-compose up -d
+```
+
+## Building the Application
+To build the application, run the following command:
+```bash
+bin/build.sh
 ```

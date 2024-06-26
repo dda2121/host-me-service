@@ -16,5 +16,7 @@ dependencies {
 
   api("org.springframework.boot:spring-boot-starter")
 
+  testImplementation("io.rest-assured:rest-assured")
+  testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.liquibase:liquibase-core:$liquibaseCoreVersion")
 }

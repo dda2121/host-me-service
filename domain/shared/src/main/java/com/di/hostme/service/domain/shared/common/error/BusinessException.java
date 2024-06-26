@@ -1,6 +1,4 @@
-package com.di.hostme.service.domain.common.error;
-
-import java.util.List;
+package com.di.hostme.service.domain.shared.common.error;
 
 public class BusinessException extends RuntimeException {
 
@@ -13,9 +11,5 @@ public class BusinessException extends RuntimeException {
 
   public BusinessError getBusinessError() {
     return businessError;
-  }
-
-  public List<String> getBusinessErrorParams() {
-    return businessError.parameters();
   }
 }

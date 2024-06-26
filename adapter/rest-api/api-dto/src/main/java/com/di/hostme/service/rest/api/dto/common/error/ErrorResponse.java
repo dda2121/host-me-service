@@ -2,18 +2,33 @@ package com.di.hostme.service.rest.api.dto.common.error;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import org.immutables.value.Value;
 
-@JsonDeserialize(as = ImmutableErrorResponse.class)
 @JsonSerialize(as = ImmutableErrorResponse.class)
-@Value.Style(stagedBuilder = true)
+@JsonDeserialize(as = ImmutableErrorResponse.class)
 @Value.Immutable
 public interface ErrorResponse {
 
-  String faultCode();
+  @Schema(
+      description = "The name of the service that generated the error response",
+      example = "host-me-service")
+  String serviceName();
 
-  String faultMessage();
-
-  List<String> faultMessageParameters();
+  @Schema(
+      description = "List of error details explaining the cause of the failure",
+      example =
+          """
+            [
+              {
+                "code": "COUNTRY_DOES_NOT_EXIST",
+                "message": "Country with id '%s' does not exist.",
+                "messageParameters": [
+                  "e9ee4c87-8633-4393-b6a6-1b7778585d51"
+                ]
+              }
+            ]
+          """)
+  List<ErrorResponseFault> errorResponseFaults();
 }
