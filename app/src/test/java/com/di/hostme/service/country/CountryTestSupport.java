@@ -1,7 +1,7 @@
 package com.di.hostme.service.country;
 
-import static com.di.hostme.service.controller.BaseController.COUNTRIES_URI;
-import static com.di.hostme.service.controller.BaseController.COUNTRY_URI;
+import static com.di.hostme.service.controller.CountryController.COUNTRIES_URI;
+import static com.di.hostme.service.controller.CountryController.COUNTRY_URI;
 
 import com.di.hostme.service.BaseTestSupport;
 import io.restassured.http.ContentType;

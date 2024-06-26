@@ -10,11 +10,6 @@ public abstract class BaseController {
 
   public static final String BASE_URI = "/v1/api/host-me";
 
-  public static final String PARAM_COUNTRY_ID = "countryId";
-
-  public static final String COUNTRIES_URI = BASE_URI + "/countries";
-  public static final String COUNTRY_URI = COUNTRIES_URI + "/{" + PARAM_COUNTRY_ID + "}";
-
   public static ResponseEntity<ErrorResponse> mapErrorToResponse(BusinessError businessError) {
     return ErrorResponseMapper.mapErrorToResponse(businessError, AbstractService.SERVICE_NAME);
   }

@@ -27,6 +27,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class CountryController extends BaseController {
 
+  public static final String PARAM_COUNTRY_ID = "countryId";
+
+  public static final String COUNTRIES_URI = BASE_URI + "/countries";
+  public static final String COUNTRY_URI = COUNTRIES_URI + "/{" + PARAM_COUNTRY_ID + "}";
+
   private static final Logger log = LoggerFactory.getLogger(CountryController.class);
 
   private final FindCountryUseCase findCountryUseCase;
