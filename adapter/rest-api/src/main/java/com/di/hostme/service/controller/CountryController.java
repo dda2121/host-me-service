@@ -15,9 +15,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Countries", description = "Country endpoints")
 @RestController
+@RequiredArgsConstructor
 public class CountryController extends BaseController {
 
   public static final String PARAM_COUNTRY_ID = "countryId";
@@ -36,13 +37,6 @@ public class CountryController extends BaseController {
 
   private final FindCountryUseCase findCountryUseCase;
   private final ListCountryUseCase listCountryUseCase;
-
-  @Autowired
-  public CountryController(
-      FindCountryUseCase findCountryUseCase, ListCountryUseCase listCountryUseCase) {
-    this.findCountryUseCase = findCountryUseCase;
-    this.listCountryUseCase = listCountryUseCase;
-  }
 
   @Operation(
       operationId = "getCountry",
