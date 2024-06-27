@@ -17,7 +17,7 @@ public class JooqCityRepositoryListTest extends JooqCityRepositoryTest {
   }
 
   @Test
-  public void thatCountryListCanBeRetrieved() {
+  public void thatCityListCanBeRetrieved() {
     final List<CityEntity> cityEntityList = listCities(cityRepository);
 
     assertThat(cityEntityList).isNotEmpty();

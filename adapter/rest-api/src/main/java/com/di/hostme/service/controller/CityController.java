@@ -66,7 +66,7 @@ public class CityController extends BaseController {
                   examples = {
                     @ExampleObject(
                         name = "CITY_DOES_NOT_EXIST",
-                        description = "City with id '%s' does not exist.",
+                        description = "City with id '{}' for country with id '{}' does not exist.",
                         value =
                             """
                                 {
@@ -74,9 +74,10 @@ public class CityController extends BaseController {
                                   "errorResponseFaults": [
                                     {
                                         "code": "CITY_DOES_NOT_EXIST",
-                                        "message": "City with id '%s' does not exist.",
+                                        "message": "City with id '{}' for country with id '{}' does not exist.",
                                         "messageParameters": [
-                                            e9ee4c87-8633-4393-b6a6-1b7778585d51
+                                            e9ee4c87-8633-4393-b6a6-1b7778585d51,
+                                            a4ab5d31-8633-4393-b6a6-1b7778585d51
                                         ]
                                     }
                                   ]
