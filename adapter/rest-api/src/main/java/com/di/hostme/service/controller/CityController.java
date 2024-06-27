@@ -6,6 +6,7 @@ import static com.di.hostme.service.controller.CountryController.PARAM_COUNTRY_I
 import com.di.hostme.service.business.city.port.inbound.FindCityUseCase;
 import com.di.hostme.service.business.city.port.inbound.ListCityUseCase;
 import com.di.hostme.service.domain.city.query.ImmutableFindCityByIdQuery;
+import com.di.hostme.service.domain.city.query.ImmutableListCityQuery;
 import com.di.hostme.service.mapper.CityResponseMapper;
 import com.di.hostme.service.rest.api.dto.city.CityDetailResponse;
 import com.di.hostme.service.rest.api.dto.city.CityListResponse;
@@ -114,9 +115,12 @@ public class CityController extends BaseController {
             }),
       })
   @GetMapping(value = CITIES_URI, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CityListResponse> listCities() {
+  public ResponseEntity<CityListResponse> listCities(
+      @PathVariable(PARAM_COUNTRY_ID) @Validated @NotNull UUID countryId) {
     log.info("ListCities applied successfully.");
 
-    return ResponseEntity.ok().body(CityResponseMapper.map(listCityUseCase.execute()));
+    return ResponseEntity.ok()
+        .body(
+            CityResponseMapper.map(listCityUseCase.execute(ImmutableListCityQuery.of(countryId))));
   }
 }
