@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+// TODO: https://dmytrodemianenko21.atlassian.net/browse/KAN-10
 @Tag(name = "Cities", description = "City endpoints")
 @RestController
 @RequiredArgsConstructor

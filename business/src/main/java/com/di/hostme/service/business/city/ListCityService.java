@@ -8,6 +8,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+// TODO: https://dmytrodemianenko21.atlassian.net/browse/KAN-10
 @Service
 @RequiredArgsConstructor
 public class ListCityService extends AbstractService implements ListCityUseCase {

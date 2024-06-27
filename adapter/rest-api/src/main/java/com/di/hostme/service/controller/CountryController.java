@@ -23,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+// TODO: https://dmytrodemianenko21.atlassian.net/browse/KAN-10
 @Tag(name = "Countries", description = "Country endpoints")
 @RestController
 @RequiredArgsConstructor
