@@ -14,7 +14,7 @@ import org.jooq.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-// TODO: use lombok for constructor
+// TODO: https://dmytrodemianenko21.atlassian.net/browse/KAN-17
 @Repository
 public class JooqCountryRepository extends JooqRepository implements CountryRepositoryAdapter {
 

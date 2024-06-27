@@ -19,7 +19,6 @@ dependencies {
     liquibaseRuntime("org.postgresql:postgresql:${postgresqlVersion}")
 
     jooqGenerator("org.postgresql:postgresql:${postgresqlVersion}")
-    jooqGenerator project(':adapter:persistence:db-model:jooq-strategy')
 }
 
 static DbSettings loadDbSettings() {
@@ -95,7 +94,7 @@ jooq {
                         packageName = 'com.di.hostme.service.repository.model'
                     }
                     strategy {
-                        name = 'com.di.hostme.service.jooq.generatorStrategy.GeneratorStrategy'
+                        name = 'org.jooq.codegen.DefaultGeneratorStrategy'
                     }
                 }
             }

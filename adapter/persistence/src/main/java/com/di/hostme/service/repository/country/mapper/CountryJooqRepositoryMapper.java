@@ -5,6 +5,7 @@ import com.di.hostme.service.domain.country.entity.ImmutableCountryEntity;
 import com.di.hostme.service.repository.model.tables.records.LvCountryRecord;
 import org.jooq.Record;
 
+// TODO: https://dmytrodemianenko21.atlassian.net/browse/KAN-11
 public final class CountryJooqRepositoryMapper {
 
   public static CountryEntity map(Record record) {
