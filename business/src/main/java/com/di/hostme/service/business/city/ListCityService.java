@@ -4,6 +4,7 @@ import com.di.hostme.service.business.AbstractService;
 import com.di.hostme.service.business.city.port.inbound.ListCityUseCase;
 import com.di.hostme.service.business.city.port.outbound.QueryCityPort;
 import com.di.hostme.service.domain.city.entity.CityEntity;
+import com.di.hostme.service.domain.city.query.ListCityQuery;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,9 @@ public class ListCityService extends AbstractService implements ListCityUseCase 
   private final QueryCityPort queryCityPort;
 
   @Override
-  public List<CityEntity> execute() {
+  public List<CityEntity> execute(ListCityQuery query) {
     log.info("Applying listCityUseCase.");
 
-    return queryCityPort.list();
+    return queryCityPort.list(query);
   }
 }

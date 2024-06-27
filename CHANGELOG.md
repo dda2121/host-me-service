@@ -10,6 +10,6 @@
     - `GET v1/api/host-me/countries/{countryId}/cities/{cityId}` 
     - `GET v1/api/host-me/countries/{countryId}/cities`
 ### 🐞 Bug Fixes
-  - No changes.
+  - *[KAN-19]* Fixed `GET v1/api/host-me/countries/{countryId}/cities` to list cities only for the specified country by its id.
 ### 📔 Documentation
   - No changes.

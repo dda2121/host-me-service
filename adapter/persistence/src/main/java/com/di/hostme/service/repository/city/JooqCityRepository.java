@@ -5,6 +5,7 @@ import static com.di.hostme.service.repository.model.tables.LvCity.LV_CITY;
 
 import com.di.hostme.service.domain.city.entity.CityEntity;
 import com.di.hostme.service.domain.city.query.FindCityByIdQuery;
+import com.di.hostme.service.domain.city.query.ListCityQuery;
 import com.di.hostme.service.repository.HostMePersistenceContext;
 import com.di.hostme.service.repository.JooqRepository;
 import com.di.hostme.service.repository.city.mapper.CityJooqRepositoryMapper;
@@ -52,11 +53,16 @@ public class JooqCityRepository extends JooqRepository implements CityRepository
   }
 
   @Override
-  public List<CityEntity> list() {
+  public List<CityEntity> list(ListCityQuery query) {
     log.info("Applying list.");
 
     final Result<Record> result =
-        dslContext.select().from(LV_CITY).where(LV_CITY.IS_DELETED.eq(false)).fetch();
+        dslContext
+            .select()
+            .from(LV_CITY)
+            .where(LV_CITY.COUNTRY_ID.eq(query.countryId()))
+            .and(LV_CITY.IS_DELETED.eq(false))
+            .fetch();
 
     log.info("List applied successfully.");
     return result.map(CityJooqRepositoryMapper::map).parallelStream().toList();
