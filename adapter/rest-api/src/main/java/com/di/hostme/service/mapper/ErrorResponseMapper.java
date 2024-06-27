@@ -8,6 +8,7 @@ import com.di.hostme.service.rest.api.dto.common.error.ImmutableErrorResponseFau
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 
+// TODO: https://dmytrodemianenko21.atlassian.net/browse/KAN-11
 public final class ErrorResponseMapper {
 
   public static ResponseEntity<ErrorResponse> mapErrorToResponse(

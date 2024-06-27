@@ -34,6 +34,44 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <createTable tableName="lv_city" schemaName="${DB_SCHEMA}">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"
+                             nullable="false"
+                             primaryKeyName="pk_city"/>
+            </column>
+            <column name="created_at" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="boolean" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint  baseColumnNames="country_id"
+                                  baseTableName="lv_city"
+                                  baseTableSchemaName="${DB_SCHEMA}"
+                                  constraintName="fk_city_country"
+                                  referencedColumnNames="id"
+                                  referencedTableName="lv_country"
+                                  referencedTableSchemaName="${DB_SCHEMA}"/>
+
     </changeSet>
 
 </databaseChangeLog>

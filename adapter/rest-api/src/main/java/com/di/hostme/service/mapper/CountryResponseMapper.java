@@ -7,6 +7,7 @@ import com.di.hostme.service.rest.api.dto.country.ImmutableCountryDetailResponse
 import com.di.hostme.service.rest.api.dto.country.ImmutableCountryListResponse;
 import java.util.List;
 
+// TODO: https://dmytrodemianenko21.atlassian.net/browse/KAN-11
 public final class CountryResponseMapper {
 
   public static CountryDetailResponse map(CountryEntity entity) {

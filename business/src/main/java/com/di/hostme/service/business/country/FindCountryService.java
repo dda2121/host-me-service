@@ -8,6 +8,7 @@ import com.di.hostme.service.domain.country.query.FindCountryByIdQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+// TODO: https://dmytrodemianenko21.atlassian.net/browse/KAN-10
 @Service
 @RequiredArgsConstructor
 public class FindCountryService extends AbstractService implements FindCountryUseCase {

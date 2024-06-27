@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+// TODO: https://dmytrodemianenko21.atlassian.net/browse/KAN-10
 @RestControllerAdvice
 public class ServiceAdviceController {
 
